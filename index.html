@@ -6,6 +6,13 @@
     <meta charset="UTF-8" />
     <title>formrunクエスト</title>
     <style>
+        #titleLogo {
+            width: 80%;
+            max-width: 400px;
+            image-rendering: pixelated;
+
+        }
+
         .control-button {
             touch-action: manipulation;
             /* タップ時のズームやスクロールを無効に */
@@ -112,8 +119,9 @@
     <div id="game">
         <canvas id="gameCanvas" width="512" height="480"></canvas>
         <div id="titleScreen">
-            <h1>formrunクエスト</h1>
-            ▶ はじめから（スペースキー）
+            <img src="formrun_quest_logo.png" alt="formrun QUEST ロゴ" id="titleLogo" />
+            <p> ▶ はじめから </p>
+            <p>（スペースキーで決定）</p>
         </div>
         <div id="quizIntroScreen" style="display:none;">
             <h2>突然ですがクイズです！（全10問）</h2>
