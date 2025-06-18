@@ -71,6 +71,23 @@
         .selected {
             background-color: #333;
         }
+
+        #controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 8px;
+        }
+
+        .control-button {
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: none;
+            background-color: #444;
+            color: white;
+        }
     </style>
 </head>
 
@@ -87,9 +104,22 @@
         </div>
         <div id="quizScreen" style="display:none;"></div>
         <div id="resultScreen" style="display:none;"></div>
+        <div id="controls">
+            <button class="control-button" onclick="simulateKey('ArrowUp')">↑</button>
+            <button class="control-button" onclick="simulateKey('ArrowLeft')">←</button>
+            <button class="control-button" onclick="simulateKey('ArrowDown')">↓</button>
+            <button class="control-button" onclick="simulateKey('ArrowRight')">→</button>
+            <button class="control-button" onclick="simulateKey('Space')">スペース</button>
+            <button class="control-button" onclick="simulateKey('1')">1</button>
+            <button class="control-button" onclick="simulateKey('2')">2</button>
+            <button class="control-button" onclick="simulateKey('3')">3</button>
+        </div>
     </div>
 
     <script>
+        function simulateKey(code) {
+            window.dispatchEvent(new KeyboardEvent('keydown', { code: code, key: code }));
+        }
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
         const tileSize = 32;
@@ -109,6 +139,7 @@
         let quizIntro = false;
         let currentQuizIndex = 0;
         let correctCount = 0;
+        let answering = false;
 
         const quizData = [
             {
@@ -173,6 +204,7 @@
         function startQuiz() {
             quizIntro = false;
             inQuiz = true;
+            answering = false;
             document.getElementById("quizIntroScreen").style.display = "none";
             document.getElementById("quizScreen").style.display = "flex";
             shuffle(quizData);
@@ -182,13 +214,14 @@
         }
 
         function renderQuiz() {
+            answering = false;
             const quiz = quizData[currentQuizIndex];
             const container = document.getElementById("quizScreen");
             container.innerHTML = `
-    <div class="quiz-box">
-      <h2>${quiz.q}</h2>
-    </div>
-    ` + quiz.options.map((opt, i) =>
+                <div class="quiz-box">
+                  <h2>${quiz.q}</h2>
+                </div>
+                ` + quiz.options.map((opt, i) =>
                 `<div class="option-box">[${i + 1}] ${opt}</div>`
             ).join('') + `<p>1〜3キーで回答</p>`;
         }
@@ -201,9 +234,11 @@
         }
 
         function handleQuizKey(e) {
+            if (answering) return;
             const quiz = quizData[currentQuizIndex];
             const key = e.key;
             if (["1", "2", "3"].includes(key)) {
+                answering = true;
                 const selectedOption = parseInt(key) - 1;
                 const container = document.getElementById("quizScreen");
                 const isCorrect = selectedOption === quiz.answer;
