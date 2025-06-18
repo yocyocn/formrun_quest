@@ -90,6 +90,15 @@
             background-color: #444;
             color: white;
         }
+
+        #controls {
+            display: none;
+            /* 初期状態は非表示 */
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 8px;
+        }
     </style>
 </head>
 
@@ -329,6 +338,16 @@
                 document.getElementById("quizIntroScreen").style.display = "flex";
             }
         });
+
+        window.addEventListener("load", () => {
+            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+                document.getElementById("controls").style.display = "flex";
+            }
+        });
+
+        function simulateKey(code) {
+            window.dispatchEvent(new KeyboardEvent('keydown', { code: code, key: code }));
+        }
     </script>
 </body>
 
