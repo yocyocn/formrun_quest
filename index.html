@@ -81,7 +81,9 @@
         }
 
         .control-button {
-            font-size: 16px;
+            min-width: 64px;
+            min-height: 64px;
+            font-size: 32px;
             padding: 8px 12px;
             border-radius: 6px;
             border: none;
@@ -105,14 +107,19 @@
         <div id="quizScreen" style="display:none;"></div>
         <div id="resultScreen" style="display:none;"></div>
         <div id="controls">
-            <button class="control-button" onclick="simulateKey('ArrowUp')">↑</button>
-            <button class="control-button" onclick="simulateKey('ArrowLeft')">←</button>
-            <button class="control-button" onclick="simulateKey('ArrowDown')">↓</button>
-            <button class="control-button" onclick="simulateKey('ArrowRight')">→</button>
-            <button class="control-button" onclick="simulateKey('Space')">スペース</button>
-            <button class="control-button" onclick="simulateKey('1')">1</button>
-            <button class="control-button" onclick="simulateKey('2')">2</button>
-            <button class="control-button" onclick="simulateKey('3')">3</button>
+            <div>
+                <button class="control-button" onclick="simulateKey('ArrowUp')">↑</button>
+                <button class="control-button" onclick="simulateKey('ArrowLeft')">←</button>
+                <button class="control-button" onclick="simulateKey('ArrowDown')">↓</button>
+                <button class="control-button" onclick="simulateKey('ArrowRight')">→</button>
+            </div>
+            <div>
+                <button class="control-button" onclick="simulateKey('Space')">スペース</button>
+                <button class="control-button" onclick="simulateKey('1')">1</button>
+                <button class="control-button" onclick="simulateKey('2')">2</button>
+                <button class="control-button" onclick="simulateKey('3')">3</button>
+            </div>
+
         </div>
     </div>
 
